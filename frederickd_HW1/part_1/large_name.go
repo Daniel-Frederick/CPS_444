@@ -1,50 +1,71 @@
-// Part 1: Question 3
+// Part 1: Question 3 package main
 
-package main
 import (
 	"fmt"
 )
 
 func main() {
-	print_D();
-	print_A();
-	print_N();
-	print_I();
-	print_E();
-	print_L();
+	D := []string{
+		"*****  ",
+		"*    * ",
+		"*     *",
+		"*     *",
+		"*    * ",
+		"*****  ",
+	}
+
+	A := []string{
+		"   *   ",
+		"  * *  ",
+		" *   * ",
+		"*******",
+		"*     *",
+		"*     *",
+	}
+
+	N := []string{
+		"*     *",
+		"**    *",
+		"* *   *",
+		"*  *  *",
+		"*   * *",
+		"*    **",
+	}
+
+	I := []string{
+		"*******",
+		"   *   ",
+		"   *   ",
+		"   *   ",
+		"   *   ",
+		"*******",
+	}
+
+	E := []string{
+		"*******",
+		"*      ",
+		"*      ",
+		"*****  ",
+		"*      ",
+		"*******",
+	}
+
+	L := []string{
+		"*      ",
+		"*      ",
+		"*      ",
+		"*      ",
+		"*      ",
+		"*******",
+	}
+
+	letters := [][]string{D, A, N, I, E, L}
+
+	for row := 0; row < len(D); row++ {
+		for _, letter := range letters {
+			fmt.Print(letter[row] + "   ")
+		}
+		fmt.Println()
+	}
 }
 
-func print_D() {
-	fmt.Print("*****")
-	fmt.Print("*    *")
-	fmt.Print("*     *")
-	fmt.Print("*      *")
-	fmt.Print("*     *")
-	fmt.Print("*    *")
-	fmt.Print("*****")
-}
-
-func print_A() {
-	fmt.Print("     *")
-	fmt.Print("    * *")
-	fmt.Print("   *   *")
-	fmt.Print("  *******")
-	fmt.Print(" *       *")
-	fmt.Print("*         *")
-}
-
-func print_N() {
-
-}
-
-func print_I() {
-
-}
-
-func print_E() {
-
-}
-
-func print_L() {
-
-}

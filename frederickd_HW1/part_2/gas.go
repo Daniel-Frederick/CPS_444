@@ -32,11 +32,9 @@ func main() {
 }
 
 func costPer100miles(mpg, pricePerGallon float64) float64 {
-	// cost = (100 miles / mpg) * price per gallon
 	return (100 / mpg) * pricePerGallon
 }
 
 func howFarTheCarGo(gallons, mpg float64) float64 {
-	// distance = gallons * mpg
 	return math.Max(gallons*mpg, 0)
 }

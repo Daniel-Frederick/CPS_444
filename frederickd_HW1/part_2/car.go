@@ -20,7 +20,6 @@ func main() {
 		return
 	}
 
-	// Parse command-line arguments
 	cost, err1 := strconv.ParseFloat(os.Args[1], 64)
 	milesPerYear, err2 := strconv.ParseFloat(os.Args[2], 64)
 	gasPrice, err3 := strconv.ParseFloat(os.Args[3], 64)
@@ -37,12 +36,7 @@ func main() {
 }
 
 func ownCarForFiveYears(cost, milesPerYear, gasPrice, mpg, resaleValue float64) float64 {
-	// Calculate fuel cost over 5 years
 	fuelCost := ((milesPerYear * 5) / mpg) * gasPrice
-
-	// Total cost = purchase cost + fuel cost - resale value
 	total := cost + fuelCost - resaleValue
-
-	// Make sure result isn't negative
 	return math.Max(total, 0)
 }
