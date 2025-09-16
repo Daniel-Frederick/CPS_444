@@ -1,3 +1,5 @@
+// Part 2: question 1
+
 package main
 
 import (
