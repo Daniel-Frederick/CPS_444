@@ -1,4 +1,4 @@
-// Part 1: Problem 1
+// Part 1: Question 1
 
 package main
 import "fmt"

@@ -1,3 +1,5 @@
+// Part 1: Question 3
+
 package main
 import (
 	"fmt"

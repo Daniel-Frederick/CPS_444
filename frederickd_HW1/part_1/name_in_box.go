@@ -1,4 +1,7 @@
+// Part 1: Question 2
+
 package main
+
 import (
 	"fmt"
 	"os"
