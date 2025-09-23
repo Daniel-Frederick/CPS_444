@@ -71,11 +71,11 @@ func main() {
 	tree = tree.Insert(3)
 	tree = tree.Insert(8)
 
+	fmt.Println("InOrder Traversal:", tree.InOrderTraversal())
+
 	fmt.Println("Is tree empty:", tree.IsEmpty())
 
 	fmt.Println("Find 8:", tree.Find(8))
 	fmt.Println("Find 100:", tree.Find(100))
-
-	fmt.Println("InOrder Traversal:", tree.InOrderTraversal())
 }
 
