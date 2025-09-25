@@ -1,4 +1,5 @@
 // Part 1: Question 3 package main
+package main
 
 import (
 	"fmt"
