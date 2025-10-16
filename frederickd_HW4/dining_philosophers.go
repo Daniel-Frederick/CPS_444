@@ -1,18 +1,18 @@
 // I modeled my program off of Dijkstra's solution on the Wikipedia page
-
 package main
 
 import (
 	"fmt"
-	"time"
-	"sync"
 	"math/rand"
+	"sync"
+	"time"
 )
 
 const philosophers = 5
 
 // state enum
 type State int
+
 const (
 	THINKING State = iota
 	HUNGRY
@@ -27,27 +27,26 @@ func right(i int) int {
 	return (i + 1) % philosophers
 }
 
-var state [philosophers]State // Keep track of eveyrone's available states
-var crit_region_mtx sync.Mutex // For critial regions
-var output_mtx sync.Mutex // For printing to terminal
-var sem [philosophers]chan struct{}
+var state [philosophers]State       // Keep track of everyone's available states
+var crit_region_mtx sync.Mutex      // For critical regions
+var output_mtx sync.Mutex           // For printing to terminal
+var sem [philosophers]chan struct{} // Semaphores for each philosopher
 
 func rand_int(min, max int) int {
-	return rand.Intn(max - min + 1) + min
+	return rand.Intn(max-min+1) + min
 }
 
-func semaphores(i int) {
-	crit_region_mtx.Lock()
-	defer crit_region_mtx.Unlock()
-
+// test checks if philosopher i can eat
+func test(i int) {
 	if state[i] == HUNGRY &&
-	   state[left(i)] != EATING &&
-		 state[right(i)] != EATING {
+		state[left(i)] != EATING &&
+		state[right(i)] != EATING {
+		state[i] = EATING
+		// Signal that philosopher i can eat
 		select {
 		case sem[i] <- struct{}{}:
-			state[i] = EATING
 		default:
-			// Do nothing
+			// Channel already has a signal
 		}
 	}
 }
@@ -56,56 +55,64 @@ func think(i int) {
 	duration := rand_int(400, 800)
 	output_mtx.Lock()
 	fmt.Printf("%d is thinking for %dms\n", i, duration)
-	time.Sleep(time.Duration(duration) * time.Millisecond)
 	output_mtx.Unlock()
+	time.Sleep(time.Duration(duration) * time.Millisecond)
 }
 
 func take_forks(i int) {
 	crit_region_mtx.Lock()
 	state[i] = HUNGRY
-	semaphores(i)
+	test(i) // Try to acquire both forks
 	crit_region_mtx.Unlock()
-	<-sem[i]
+	<-sem[i] // Block if forks were not acquired
 }
 
 func eat(i int) {
 	duration := rand_int(400, 800)
 	output_mtx.Lock()
-	fmt.Printf("%d is eating %d", i, duration)
-	time.Sleep(time.Duration(duration) * time.Millisecond)
+	fmt.Printf("%d is eating for %dms\n", i, duration)
 	output_mtx.Unlock()
+	time.Sleep(time.Duration(duration) * time.Millisecond)
 }
 
 func put_forks(i int) {
 	crit_region_mtx.Lock()
 	state[i] = THINKING
-	semaphores(left(i))
-	semaphores(right(i))
+	// Check if neighbors can now eat
+	test(left(i))
+	test(right(i))
 	crit_region_mtx.Unlock()
 }
 
-func philosopher(i int, wg *sync.WaitGroup) {
-	defer wg.Done() // Signal when a philosopher is finished eating
-	for {
+func philosopher(i int, wg *sync.WaitGroup, iterations int) {
+	defer wg.Done()
+	for j := 0; j < iterations; j++ {
 		think(i)
 		take_forks(i)
 		eat(i)
 		put_forks(i)
 	}
+	output_mtx.Lock()
+	fmt.Printf("Philosopher %d finished\n", i)
+	output_mtx.Unlock()
 }
 
-func main () {
+func main() {
+	rand.Seed(time.Now().UnixNano())
 	var wg sync.WaitGroup
 
+	// Initialize semaphores
 	for i := 0; i < philosophers; i++ {
 		sem[i] = make(chan struct{}, 1)
 	}
 
+	// Start philosophers (each eats 5 times then stops)
+	iterations := 5
 	for i := 0; i < philosophers; i++ {
 		wg.Add(1)
-		go philosopher(i, &wg)
+		go philosopher(i, &wg, iterations)
 	}
 
 	wg.Wait()
+	fmt.Println("All philosophers finished dining")
 }
-
