@@ -26,3 +26,4 @@ int index_of_largest(const double arr[], int n)
 
     return max_index;
 }
+

@@ -7,7 +7,6 @@ struct Month {
     int month_no;
 };
 
-// Assume months array is declared globally
 extern struct Month months[12];
 
 int total_days_up_to(int month_no)
@@ -21,7 +20,6 @@ int total_days_up_to(int month_no)
     return total;
 }
 
-// Example usage
 struct Month months[12] = {
     {"January", "Jan", 31, 1},
     {"February", "Feb", 28, 2},
@@ -39,7 +37,7 @@ struct Month months[12] = {
 
 int main(void)
 {
-    int month = 4; // example: April
+    int month = 4;
     printf("Total days up to month %d: %d\n", month, total_days_up_to(month));
     return 0;
 }

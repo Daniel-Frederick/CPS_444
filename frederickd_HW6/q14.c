@@ -18,13 +18,13 @@ int main(void)
 
     while (1)
     {
-        printf("Enter a word (q to quit): ");
+        printf("Enter a word: ");
         if (!fgets(word, 80, stdin)) break;
         if (word[0] == 'q') break;
 
         printf("Enter a character to search for: ");
         c = getchar();
-        while (getchar() != '\n'); // clear buffer
+        while (getchar() != '\n');
 
         char *p = find_char(word, c);
 

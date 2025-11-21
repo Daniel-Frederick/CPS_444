@@ -24,7 +24,7 @@ int main(void)
 
     while (1)
     {
-        printf("Enter source string (q to quit): ");
+        printf("Enter source string: ");
         if (!fgets(src, sizeof(src), stdin)) break;
         if (src[0] == 'q') break;
 

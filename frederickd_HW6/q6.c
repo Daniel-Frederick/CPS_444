@@ -31,3 +31,4 @@ void reverse(double arr[], int n)
         right--;
     }
 }
+

@@ -12,7 +12,6 @@ int main(void)
         [2] = { .foclen = 500.0f, .fstop = 2.0f, .brand = "Remarkatar" }
     };
 
-    // Example print to verify
     printf("Lens 3: %s, %.1f mm, f/%.1f\n",
            lenses[2].brand, lenses[2].foclen, lenses[2].fstop);
 

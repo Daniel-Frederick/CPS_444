@@ -39,3 +39,4 @@ void copy_ptrs(double *target, const double *source, const double *end)
         source++;
     }
 }
+

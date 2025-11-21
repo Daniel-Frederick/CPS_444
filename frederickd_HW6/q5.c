@@ -28,3 +28,4 @@ double diff_largest_smallest(const double arr[], int n)
 
     return max - min;
 }
+

@@ -18,7 +18,7 @@ int main(void)
 
     while (1)
     {
-        printf("Enter a string (q to quit): ");
+        printf("Enter a string: ");
         if (!fgets(text, 80, stdin)) break;
         if (text[0] == 'q') break;
 

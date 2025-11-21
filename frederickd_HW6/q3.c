@@ -25,3 +25,4 @@ int max_in_array(const int arr[], int n)
 
     return max;
 }
+

@@ -23,3 +23,4 @@ int main(void)
     printf("Fetched: [%s]\n", buffer);
     return 0;
 }
+
